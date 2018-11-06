@@ -34,7 +34,7 @@ public class Grupo {
 
     }
 
-    @DatabaseField(columnName = "codigo")
+    @DatabaseField(generatedId = true)
     private Integer codigo;
     @DatabaseField
     private String nome;

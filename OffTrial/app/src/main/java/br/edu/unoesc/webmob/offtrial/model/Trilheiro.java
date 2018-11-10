@@ -1,5 +1,6 @@
 package br.edu.unoesc.webmob.offtrial.model;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Trilheiro {
@@ -11,6 +12,16 @@ public class Trilheiro {
     private Integer idade;
     @DatabaseField(foreign = true, foreignColumnName = "codigo")
     private Moto moto;
+    @DatabaseField(dataType = DataType.BYTE_ARRAY)
+    private byte[] foto;
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 
     public Integer getCodigo() {
         return codigo;

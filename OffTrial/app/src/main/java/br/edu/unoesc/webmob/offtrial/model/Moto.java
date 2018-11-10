@@ -7,17 +7,13 @@ public class Moto {
     @DatabaseField(generatedId = true)
     private Integer codigo;
     @DatabaseField
-    private String descricaoModelo;
+    private String modelo;
     @DatabaseField
-    private String descricaoMarca;
+    private String marca;
     @DatabaseField
-    private String cilindradas;
+    private String cilindrada;
     @DatabaseField(canBeNull = false)
     private String cor;
-
-    public Moto() {
-
-    }
 
     public Integer getCodigo() {
         return codigo;
@@ -27,28 +23,28 @@ public class Moto {
         this.codigo = codigo;
     }
 
-    public String getDescricaoModelo() {
-        return descricaoModelo;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setDescricaoModelo(String descricaoModelo) {
-        this.descricaoModelo = descricaoModelo;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
-    public String getDescricaoMarca() {
-        return descricaoMarca;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setDescricaoMarca(String descricaoMarca) {
-        this.descricaoMarca = descricaoMarca;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
-    public String getCilindradas() {
-        return cilindradas;
+    public String getCilindrada() {
+        return cilindrada;
     }
 
-    public void setCilindradas(String cilindradas) {
-        this.cilindradas = cilindradas;
+    public void setCilindrada(String cilindrada) {
+        this.cilindrada = cilindrada;
     }
 
     public String getCor() {
@@ -57,5 +53,9 @@ public class Moto {
 
     public void setCor(String cor) {
         this.cor = cor;
+    }
+
+    public Moto() {
+
     }
 }

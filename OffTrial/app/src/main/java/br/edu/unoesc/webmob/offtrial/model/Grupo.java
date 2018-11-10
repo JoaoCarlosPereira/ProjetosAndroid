@@ -3,8 +3,10 @@ package br.edu.unoesc.webmob.offtrial.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 @DatabaseTable(tableName = "TB_GRUPO")
-public class Grupo {
+public class Grupo implements Serializable {
 
     public Integer getCodigo() {
         return codigo;
@@ -32,6 +34,11 @@ public class Grupo {
 
     public Grupo() {
 
+    }
+
+    @Override
+    public String toString() {
+        return getNome();
     }
 
     @DatabaseField(generatedId = true)

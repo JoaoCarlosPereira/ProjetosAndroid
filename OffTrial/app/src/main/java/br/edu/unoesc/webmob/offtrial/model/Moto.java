@@ -2,7 +2,9 @@ package br.edu.unoesc.webmob.offtrial.model;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public class Moto {
+import java.io.Serializable;
+
+public class Moto implements Serializable {
 
     @DatabaseField(generatedId = true)
     private Integer codigo;
@@ -57,5 +59,10 @@ public class Moto {
 
     public Moto() {
 
+    }
+
+    @Override
+    public String toString() {
+        return getModelo() + " - " + getCilindrada();
     }
 }

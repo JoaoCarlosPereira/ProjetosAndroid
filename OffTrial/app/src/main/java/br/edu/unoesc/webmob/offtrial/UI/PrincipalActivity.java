@@ -1,6 +1,8 @@
 package br.edu.unoesc.webmob.offtrial.UI;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,15 +15,50 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import br.edu.unoesc.webmob.offtrial.R;
+import android.view.Window;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Fullscreen;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.WindowFeature;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.androidannotations.rest.spring.annotations.RestService;
+
+import java.util.List;
+
+import br.edu.unoesc.webmob.offtrial.R;
+import br.edu.unoesc.webmob.offtrial.adapter.TrilheiroAdapter;
+import br.edu.unoesc.webmob.offtrial.model.Usuario;
+import br.edu.unoesc.webmob.offtrial.rest.CidadeClient;
+import br.edu.unoesc.webmob.offtrial.rest.Endereco;
+
+@EActivity(R.layout.activity_principal)
+@Fullscreen
+@WindowFeature(Window.FEATURE_NO_TITLE)
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+    @ViewById
+    ListView lstTrilheiros;
+    @Bean
+    TrilheiroAdapter trilheiroAdapter;
+    @Pref
+    Configuracao_ configuracao;
+
+    //Injeção do client Rest
+    @RestService
+    CidadeClient cidadeClient;
+
+    ProgressDialog pd;
+
+    @AfterViews
+    public void inicializar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -42,6 +79,27 @@ public class PrincipalActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Recuperar dados do usuario
+        Usuario u = (Usuario) getIntent().getSerializableExtra("usuario");
+
+        Toast.makeText(this, "Seja bem-vindo! - " + u.getEmail(), Toast.LENGTH_LONG).show();
+
+        View v = toolbar.getRootView();
+        v.setBackgroundColor(configuracao.cor().get());
+        Toast.makeText(this, configuracao.parametro().get(), Toast.LENGTH_LONG).show();
+
+        configuracao.edit().cor().put(Color.BLUE).apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        atualizarListaTrilheiro();
+    }
+
+    public void atualizarListaTrilheiro() {
+        lstTrilheiros.setAdapter(trilheiroAdapter);
     }
 
     @Override
@@ -81,23 +139,38 @@ public class PrincipalActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        pd = new ProgressDialog(this);
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_sincronizar) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            pd.setCancelable(false);
+            pd.setTitle("Aguarde, Consultando ...");
+            pd.setIndeterminate(true);
+            pd.show();
+            consultarCidadePorNome();
+        }
+        if (id == R.id.nav_preferencias) {
+            // TODO (0,50): Implementar tela para salvar preferencias
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @UiThread
+    public void mostrarResultado(String resultado) {
+        pd.dismiss();
+        Toast.makeText(this, resultado, Toast.LENGTH_LONG).show();
+    }
+
+    @Background(delay = 200)
+    public void consultarCidadePorNome() {
+        // aciona a busca
+        List<Endereco> e = cidadeClient.getEndereco("Maravilha");
+
+        if (e != null & e.size() > 0) {
+            mostrarResultado(e.get(0).toString());
+        }
     }
 }

@@ -48,7 +48,8 @@ public class LoginsActivity extends AppCompatActivity {
 
 
             if (u != null) {
-                Intent itPrincipal = new Intent(this, PrincipalActivity.class);
+                Intent itPrincipal = new Intent(this, PrincipalActivity_.class);
+                itPrincipal.putExtra("usuario", u);
                 startActivity(itPrincipal);
             } else {
                 Toast.makeText(this, "Usuário e/ou senha inválidos!", Toast.LENGTH_LONG).show();

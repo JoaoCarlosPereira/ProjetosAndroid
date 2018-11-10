@@ -3,7 +3,9 @@ package br.edu.unoesc.webmob.offtrial.model;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
-public class Trilheiro {
+import java.io.Serializable;
+
+public class Trilheiro implements Serializable {
     @DatabaseField(generatedId = true)
     private Integer codigo;
     @DatabaseField

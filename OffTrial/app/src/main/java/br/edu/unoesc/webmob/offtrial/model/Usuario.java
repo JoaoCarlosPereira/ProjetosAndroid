@@ -2,7 +2,9 @@ package br.edu.unoesc.webmob.offtrial.model;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
 
     @DatabaseField(generatedId = true)
     private Integer codigo;

@@ -7,55 +7,88 @@
     tools:context=".UI.TrilheirosActivity">
 
     <EditText
-        android:id="@+id/EdtNomeTrilheiro"
+        android:id="@+id/edtNomeTrilheiro"
         android:layout_width="380dp"
         android:layout_height="46dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
+        android:hint="Nome do trilheiro"
         android:inputType="textPersonName"
-        android:text="Nome do trilheiro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imvFoto" />
 
     <EditText
         android:id="@+id/edtIdadeTrilheiro"
         android:layout_width="380dp"
         android:layout_height="46dp"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="22dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:ems="10"
+        android:hint="Idade do Trilheiro"
         android:inputType="number"
-        android:text="Idade do Trilheiro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EdtNomeTrilheiro" />
+        app:layout_constraintTop_toBottomOf="@+id/edtNomeTrilheiro" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="150dp"
-        android:onClick="Salvar()"
+        android:onClick="Salvar"
         android:text="Salvar"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtIdadeTrilheiro" />
+        app:layout_constraintTop_toBottomOf="@+id/spnGrupos" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:onClick="Cancelar()"
         android:text="Cancelar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnGrupos" />
+
+    <Spinner
+        android:id="@+id/spnMotos"
+        android:layout_width="368dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtIdadeTrilheiro" />
+
+    <Spinner
+        android:id="@+id/spnGrupos"
+        android:layout_width="368dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnMotos" />
+
+    <ImageView
+        android:id="@+id/imvFoto"
+        android:layout_width="137dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="123dp"
+        android:background="@drawable/ic_menu_camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_camera" />
 </android.support.constraint.ConstraintLayout>
